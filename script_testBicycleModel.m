@@ -54,4 +54,6 @@ end
 
 figure(12345)
 clf
-plot(X,Y)
+plot(X,Y);
+xlabel('X[m]');
+ylabel('Y[m]');

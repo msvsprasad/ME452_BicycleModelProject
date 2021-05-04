@@ -207,7 +207,7 @@ for vehicle_i=1:N_vehicles
     legend('MATLAB','Simulink');
     xlabel('Time (sec)'); 
     ylabel('Yawrate (rad/sec)');
-    title('Satya Prasad Maddipatla');
+    title('Yawrate');
     
     % Plot the lateral velocity
     h2 = figure(88);
@@ -220,7 +220,7 @@ for vehicle_i=1:N_vehicles
     legend('MATLAB','Simulink');
     xlabel('Time (sec)'); 
     ylabel('Lateral Velocity (m/sec)');
-    title('Satya Prasad Maddipatla');
+    title('Lateral Velocity');
     
     % The XY Plots
     h3 = figure(77);
@@ -234,15 +234,15 @@ for vehicle_i=1:N_vehicles
     legend('MATLAB','Simulink');
     xlabel('X position [m]');
     ylabel('Y position [m]');
-    title('Satya Prasad Maddipatla');
+    title('Position');
 end
 
 % The Steering Input
 h4 = figure(66);
 hold on;
-set(h2,'Name','Steering Input')
+set(h4,'Name','Steering Input')
 plot(t,df,'b');
 grid on;
 xlabel('Time (sec)'); 
 ylabel('Steering input (rad)');
-title('Satya Prasad Maddipatla');
+title('Steering Input');
