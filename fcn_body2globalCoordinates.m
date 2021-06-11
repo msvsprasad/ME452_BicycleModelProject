@@ -8,10 +8,10 @@ function dydt = fcn_body2globalCoordinates(~, y, U, V, r)
 %
 % INPUTS:
 %
-%   y: A 3x1 vector of global pose
-%   U: Longitudinal velocity
-%   V: Lateral velocity
-%   r: Yaw rate
+%   y: A 3x1 vector of global pose [X; Y; Phi]
+%   U: Longitudinal velocity [m/s]
+%   V: Lateral velocity [m/s]
+%   r: Yaw rate [rad/s]
 %
 % OUTPUTS:
 %
@@ -20,8 +20,6 @@ function dydt = fcn_body2globalCoordinates(~, y, U, V, r)
 % This function was written on 2021_04_28 by Satya Prasad
 % Questions or comments? szm888@psu.edu
 %
-% TODO:
-% 1. Add examples
 
 flag_do_debug = 0; % Flag to plot the results for debugging
 flag_check_inputs = 1; % Flag to perform input checking
@@ -50,23 +48,23 @@ if flag_check_inputs
     end
     
     % Check the 'y' input
-    if (3~=length(y)) || ~isnumeric(y)
-        error('Global pose must be a 3x1 vector.');
+    if ~isreal(y) || ~isnumeric(y) || 3~=numel(y)
+        error('Global pose must be a 3x1 vector of real numbers.');
     end
     
     % Check the 'U' input
-    if (1~=length(U)) || ~isnumeric(U) || (0>U)
+    if ~isreal(U) || ~isnumeric(U) || 1~=numel(U) || (0>U)
         error('Longitudinal velocity (U) must be a non-negative number.');
     end
     
     % Check the 'V' input
-    if (1~=length(V)) || ~isnumeric(V)
-        error('Lateral velocity (V) must be a scalar.');
+    if ~isreal(V) || ~isnumeric(V) || 1~=numel(V)
+        error('Lateral velocity (V) must be a real number.');
     end
     
     % Check the 'r' input
-    if (1~=length(r)) || ~isnumeric(r)
-        error('Yaw rate (r) must be a scalar.');
+    if ~isreal(r) || ~isnumeric(r) || 1~=numel(r)
+        error('Yaw rate (r) must be a real number.');
     end
 end
 

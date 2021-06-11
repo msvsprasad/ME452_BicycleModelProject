@@ -159,11 +159,12 @@ for vehicle_i=1:N_vehicles
         Fy = fcn_lateralForces(alpha, vehicle(vehicle_i));
         
         % estimate lateral velocity and yaw rate
-        [~, y] = ode45(@(t,y) fcn_lateralDynamics(t, y, U, Fy, ...
-                       vehicle(vehicle_i)), [0 deltaT], input_states);
+        [~, y] = fcn_RungeKutta4Order(...
+                @(t,y) fcn_lateralDynamics(t,y,U,Fy,vehicle(vehicle_i)), ...
+                input_states', time, deltaT);
         counter = counter+1;
-        all_V_mat(counter,vehicle_i) = y(end,1);
-        all_r_mat(counter,vehicle_i) = y(end,2);
+        all_V_mat(counter,vehicle_i) = y(1);
+        all_r_mat(counter,vehicle_i) = y(2);
         
         input_pose = [all_X_mat(counter-1,vehicle_i), ...
                       all_Y_mat(counter-1,vehicle_i), ...
@@ -171,11 +172,12 @@ for vehicle_i=1:N_vehicles
         states = [all_V_mat(counter,vehicle_i), ...
                   all_r_mat(counter,vehicle_i)];
         % estimate global position
-        [~, y] = ode45(@(t,y) fcn_body2globalCoordinates(t, y, U, ...
-                       states(1), states(2)), [0 deltaT], input_pose);
-        all_X_mat(counter,vehicle_i) = y(end,1);
-        all_Y_mat(counter,vehicle_i) = y(end,2);
-        all_phi_mat(counter,vehicle_i) = y(end,3);
+        [~, y] = fcn_RungeKutta4Order(...
+                @(t,y) fcn_body2globalCoordinates(t,y,U,states(1),states(2)), ...
+                input_pose', time, deltaT);
+        all_X_mat(counter,vehicle_i) = y(1);
+        all_Y_mat(counter,vehicle_i) = y(2);
+        all_phi_mat(counter,vehicle_i) = y(3);
     end
 end
 

@@ -8,20 +8,18 @@ function dydt = fcn_lateralDynamics(~, y, U, Fy, vehicle)
 %
 % INPUTS:
 %
-%   y: A 2x1 vector of lateral velocity and yaw rate
-%   U: Longitudinal velocity
-%   Fy: A 2x1 vector containing lateral-forces at front and rear wheels
+%   y: A 2x1 vector of lateral velocity and yaw rate [m/s rad/s]
+%   U: Longitudinal velocity [m/s]
+%   Fy: A 2x1 vector containing lateral-forces at front and rear wheels [Newton]
 %   vehicle: MATLAB structure containing vehicle properties
 %
 % OUTPUTS:
 %
-%   dydt: A 2x1 vector of lateral acceleration and yaw acceleration
+%   dydt: A 2x1 vector of lateral acceleration and yaw acceleration [m/s^2 rad/s^2]
 %
 % This function was written on 2021_04_28 by Satya Prasad
 % Questions or comments? szm888@psu.edu
 %
-% TODO:
-% 1. Add examples
 
 flag_do_debug = 0; % Flag to plot the results for debugging
 flag_check_inputs = 1; % Flag to perform input checking
@@ -50,18 +48,18 @@ if flag_check_inputs
     end
     
     % Check the 'y' input
-    if (2~=length(y)) || ~isnumeric(y)
-        error('States must be a 2x1 vector.');
+    if ~isreal(y) || ~isnumeric(y) || 2~=numel(y)
+        error('States must be a 2x1 vector of real numbers.');
     end
     
     % Check the 'U' input
-    if (1~=length(U)) || ~isnumeric(U) || (0>U)
+    if ~isreal(U) || ~isnumeric(U) || 1~=numel(U) || 0>U
         error('Longitudinal velocity (U) must be a non-negative number.');
     end
     
     % Check the 'Fy' input
-    if (2~=size(Fy,1)) || ~isnumeric(Fy)
-        error('Lateral forces (Fy) must be a 2x1 vector.');
+    if ~isreal(Fy) || ~isnumeric(Fy) || 2~=numel(Fy)
+        error('Lateral forces (Fy) must be a 2x1 vector of real numbers.');
     end
 end
 

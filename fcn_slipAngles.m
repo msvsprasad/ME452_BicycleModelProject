@@ -9,22 +9,19 @@ function alpha = fcn_slipAngles(U, V, r, delta_f, vehicle)
 %
 % INPUTS:
 %
-%   U: Longitudinal velocity
-%   V: Lateral velocity
-%   r: Yaw rate
-%   delta_f: Steering angle (FRONT)
+%   U: Longitudinal velocity [m/s]
+%   V: Lateral velocity [m/s]
+%   r: Yaw rate [rad/s]
+%   delta_f: Steering angle (FRONT) [rad]
 %   vehicle: MATLAB structure containing vehicle properties
 %
 % OUTPUTS:
 %
-%   alpha: A 2x1 vector containing slip-angles of front and rear wheels
+%   alpha: A 2x1 vector containing slip-angles of front and rear wheels [rad]
 %
 % This function was written on 2021_04_28 by Satya Prasad
 % Questions or comments? szm888@psu.edu
 %
-% TODO:
-% 1. Add examples
-% 2. Add slip-angles for left and rights tires
 
 flag_do_debug = 0; % Flag to plot the results for debugging
 flag_check_inputs = 1; % Flag to perform input checking
@@ -53,23 +50,23 @@ if flag_check_inputs
     end
     
     % Check the 'U' input
-    if (1~=length(U)) || ~isnumeric(U) || (0>U)
+    if ~isreal(U) || ~isnumeric(U) || 1~=numel(U) || 0>U
         error('Longitudinal velocity (U) must be a non-negative number.');
     end
     
     % Check the 'V' input
-    if (1~=length(V)) || ~isnumeric(V)
-        error('Lateral velocity (V) must be a scalar.');
+    if ~isreal(V) || ~isnumeric(V) || 1~=numel(V)
+        error('Lateral velocity (V) must be a real number.');
     end
     
     % Check the 'r' input
-    if (1~=length(r)) || ~isnumeric(r)
-        error('Yaw rate (r) must be a scalar.');
+    if ~isreal(r) || ~isnumeric(r) || 1~=numel(r)
+        error('Yaw rate (r) must be a real number.');
     end
     
     % Check the 'delta_f' input
-    if (1~=length(delta_f)) || ~isnumeric(delta_f)
-        error('Front steering angle (delta_f) must be a scalar.');
+    if ~isreal(delta_f) || ~isnumeric(delta_f) || 1~=numel(delta_f)
+        error('Front steering angle (delta_f) must be a real number.');
     end
 end
 

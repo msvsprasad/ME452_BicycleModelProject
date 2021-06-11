@@ -9,19 +9,16 @@ function Fy = fcn_lateralForces(alpha, vehicle)
 %
 % INPUTS:
 %
-%   alpha: A 2x1 vector containing slip-angles of front and rear wheels
+%   alpha: A 2x1 vector containing slip-angles of front and rear wheels [rad]
 %   vehicle: MATLAB structure containing vehicle properties
 %
 % OUTPUTS:
 %
-%   Fy: A 2x1 vector containing lateral-forces at front and rear wheels
+%   Fy: A 2x1 vector containing lateral-forces at front and rear wheels [Newton]
 %
 % This function was written on 2021_04_28 by Satya Prasad
 % Questions or comments? szm888@psu.edu
 %
-% TODO:
-% 1. Add examples
-% 2. Add brush model
 
 flag_do_debug = 0; % Flag to plot the results for debugging
 flag_check_inputs = 1; % Flag to perform input checking
@@ -50,8 +47,8 @@ if flag_check_inputs
     end
     
     % Check the 'alpha' input
-    if (2~=size(alpha,1)) || ~isnumeric(alpha)
-        error('Slip-angles (alphs) must be a 2x1 vector.');
+    if ~isreal(alpha) || ~isnumeric(alpha) || 2~=numel(alpha)
+        error('Slip-angles (alpha) must be a 2x1 vector of real numbers.');
     end
 end
 
